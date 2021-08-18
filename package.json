@@ -1,0 +1,62 @@
+{
+  "name": "switchboard-ticker",
+  "version": "4.0.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^5.0.0-alpha.27",
+    "@material-ui/icons": "^5.0.0-alpha.27",
+    "@material-ui/lab": "^5.0.0-alpha.27",
+    "@material-ui/styled-engine": "^5.0.0-alpha.11",
+    "@material-ui/system": "^5.0.0-alpha.27",
+    "@solana/web3.js": "^1.24.0",
+    "@switchboard-xyz/switchboard-api": "^0.2.121",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "nice-react-ticker": "^1.1.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-helmet": "^6.1.0",
+    "react-page-visibility": "^6.4.0",
+    "react-scripts": "latest",
+    "react-ticker": "^1.2.2",
+    "typeface-roboto": "^1.1.13",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier-eslint --eslint-config-path ./.eslintrc.js --write './src/**/*.tsx'"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-dom": "^17.0.3",
+    "@types/react-helmet": "^6.1.2",
+    "@types/react-page-visibility": "^6.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.2.1",
+    "prettier-eslint": "^12.0.0",
+    "prettier-eslint-cli": "^5.0.1"
+  }
+}

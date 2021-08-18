@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "MiamiFont";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./static/MiamiVice.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: linear-gradient(#0bd3d3, #f890e7);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#root > div > div.switchboard-ticker > div {
+  background-color: white;
+  /* background-image: linear-gradient(#66f7f7, #0bd3d3); */
+  opacity: 0.9;
+}
+
+.switchboard-ticker {
+  position: sticky;
+  top: 0px;
+  z-index: 9999;
+}
+
+.title {
+  font-family: MiamiFont;
+  font-style: normal;
+  font-size: 3em;
+  color: "#f890e7";
+}
+
+.selected-feed {
+  font-family: MiamiFont;
+  font-style: normal;
+  font-size: 5em;
+  margin: auto;
+  margin-top: 0;
+  text-align: center;
+}
+
+.miami {
+  font-family: MiamiFont;
+  font-style: normal;
+}
