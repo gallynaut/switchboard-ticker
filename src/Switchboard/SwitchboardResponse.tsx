@@ -7,10 +7,14 @@ import {
   CardMedia,
   CardContent,
   CardActionArea,
+  Grid,
+  List,
+  ListItem,
   Typography,
   CircularProgress,
 } from "@material-ui/core";
 import { AggregatorState } from "@switchboard-xyz/switchboard-api";
+import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
 import solanalogo from "../static/solana.png";
 import { formatCurrency } from "../utils";
 import { SwitchboardFeed } from "../types";
@@ -24,26 +28,52 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
 }: SwitchboardResponseProps) => {
   return (
     <>
-      {selected ? (
-        <Box>
-          <Card
-            elevation={6}
-            raised
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              borderRadius: 7,
-              opacity: 0.75,
-            }}
-          >
-            <Typography variant="subtitle1" sx={{ m: 2 }}>
-              {JSON.stringify(selected.lastResult, null, 2)}
-            </Typography>
-          </Card>
-        </Box>
-      ) : (
-        <CircularProgress />
-      )}
+      <Box>
+        <Card
+          elevation={6}
+          raised
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            borderRadius: 7,
+            opacity: 0.75,
+            width: "100%",
+            minHeight: "300px",
+          }}
+        >
+          {typeof selected?.lastResult === "undefined" ? (
+            <CircularProgress />
+          ) : (
+            <Grid container spacing={3} alignItems="center" direction="column">
+              <List>
+                <Grid item xs={12}>
+                  <ListItem>
+                    <Typography variant="subtitle1" sx={{ m: 2 }}>
+                      {selected.lastResult?.version}
+                    </Typography>
+                  </ListItem>
+                </Grid>
+                {/* <Grid item xs={12}>
+                  <ListItem>
+                    <Typography variant="subtitle1" sx={{ m: 2 }}>
+                      {typeof symbol.lastResult.fulfillmentManagerPubkey ===
+                      "undefined"
+                        ? ""
+                        : new PublicKey(
+                            symbol.lastResult?.fulfillmentManagerPubkey
+                          )}
+                    </Typography>
+                  </ListItem>
+                </Grid> */}
+              </List>
+            </Grid>
+          )}
+
+          {/* <Typography variant="subtitle1" sx={{ m: 2 }}>
+            {JSON.stringify(selected?.lastResult, null, 2)}
+          </Typography> */}
+        </Card>
+      </Box>
     </>
   );
 };
