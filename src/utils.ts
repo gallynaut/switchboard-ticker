@@ -1,3 +1,5 @@
+import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
+
 export const formatCurrency = (price: number | null | undefined) => {
   if (price) {
     return currencyFormatter.format(price);
@@ -17,4 +19,12 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 export const getCurrentTime = (): string => {
   const today = new Date();
   return `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+};
+
+export const getPublicKeyString = (key: Uint8Array | undefined): string => {
+  if (typeof key === "undefined") {
+    return "";
+  }
+  const pubKey: PublicKey = new PublicKey(key);
+  return pubKey.toString();
 };

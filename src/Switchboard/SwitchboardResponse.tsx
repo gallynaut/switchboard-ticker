@@ -8,16 +8,17 @@ import {
   CardContent,
   CardActionArea,
   Grid,
+  Link,
   List,
   ListItem,
   Typography,
   CircularProgress,
+  Divider,
 } from "@material-ui/core";
 import { AggregatorState } from "@switchboard-xyz/switchboard-api";
 import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
 import solanalogo from "../static/solana.png";
-import { formatCurrency } from "../utils";
-import { SwitchboardFeed } from "../types";
+import { formatCurrency, getPublicKeyString } from "../utils";
 
 type SwitchboardResponseProps = {
   lastResult: AggregatorState | undefined;
@@ -26,6 +27,7 @@ type SwitchboardResponseProps = {
 const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
   lastResult,
 }: SwitchboardResponseProps) => {
+  const fulfilKey = getPublicKeyString(lastResult?.fulfillmentManagerPubkey);
   return (
     <>
       <Box>
@@ -38,33 +40,43 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
             borderRadius: 7,
             opacity: 0.75,
             width: "100%",
-            minHeight: "300px",
+            minHeight: "500px",
           }}
         >
           {typeof lastResult === "undefined" ? (
             <CircularProgress />
           ) : (
-            <Grid container spacing={3} alignItems="center" direction="column">
+            <Grid
+              container
+              spacing={3}
+              alignItems="flex-start"
+              direction="column"
+            >
               <List>
                 <Grid item xs={12}>
                   <ListItem>
                     <Typography variant="subtitle1" sx={{ m: 2 }}>
-                      {lastResult?.version}
+                      <b>Version:</b> {lastResult?.version}
                     </Typography>
                   </ListItem>
                 </Grid>
-                {/* <Grid item xs={12}>
+                <Grid item xs={12}>
                   <ListItem>
                     <Typography variant="subtitle1" sx={{ m: 2 }}>
-                      {typeof symbol.lastResult.fulfillmentManagerPubkey ===
-                      "undefined"
-                        ? ""
-                        : new PublicKey(
-                            symbol.lastResult?.fulfillmentManagerPubkey
-                          )}
+                      <b>Fulfilment Manager:</b>{" "}
+                      <Link
+                        href={`https://solanabeach.io/address/${fulfilKey}`}
+                        target="_blank"
+                        rel="noopener"
+                        color="inherit"
+                        underline="hover"
+                      >
+                        {fulfilKey}
+                      </Link>
                     </Typography>
                   </ListItem>
-                </Grid> */}
+                </Grid>
+                <Divider />
               </List>
             </Grid>
           )}

@@ -12,16 +12,6 @@ body {
   background-image: linear-gradient(90deg, #0bd3d3, #f890e7);
 }
 
-a:hover {
-  text-decoration: none;
-}
-
-#root > div > div.switchboard-ticker > div {
-  background-color: white;
-  /* background-image: linear-gradient(#66f7f7, #0bd3d3); */
-  opacity: 0.9;
-}
-
 .title {
   font-family: MiamiFont;
   font-style: normal;
