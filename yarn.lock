@@ -8441,11 +8441,6 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-nice-react-ticker@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/nice-react-ticker/-/nice-react-ticker-1.1.0.tgz#eb9bb1c3b8c2122ff3b638b54765df6dd457ead0"
-  integrity sha512-qpN8DT1I6hekv2NmdOj8ei9nIoMQHl1WBEsyygHGHbEkiYCnM1LtMgtK/e6zsSjghS4BTWVLHG2YEwYKol4+ig==
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

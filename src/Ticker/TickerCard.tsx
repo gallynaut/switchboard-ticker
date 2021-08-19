@@ -3,39 +3,41 @@ import {
   Avatar,
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   CardActionArea,
   Typography,
-  CircularProgress,
 } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import solanalogo from "./static/solana.png";
-import { formatCurrency } from "./utils";
+import { formatCurrency } from "../utils";
 
-type CardProps = {
+type TickerCardProps = {
   symbol: string;
   lastPrice: number | null | undefined;
   setSelected: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const SwitchboardCard: FC<CardProps> = ({
+const TickerCard: FC<TickerCardProps> = ({
   symbol,
   lastPrice,
   setSelected,
-}: CardProps) => {
-  const handleClick = () => {
+}: TickerCardProps) => {
+  const theme = useTheme();
+
+  const handleClick = (e: any) => {
     setSelected(symbol);
   };
 
   return (
     <Card
-      elevation={6}
+      elevation={4}
       raised
       sx={{
         display: "flex",
         alignItems: "center",
-        borderRadius: 7,
-        opacity: 0.75,
+        borderRadius: 2,
+        maxHeight: "80%",
+        backgroundColor: "white",
       }}
       onClick={handleClick}
     >
@@ -46,22 +48,25 @@ const SwitchboardCard: FC<CardProps> = ({
           justifyContent: "flex-start",
         }}
       >
-        <Avatar sx={{ mx: 2 }} alt="logo" src={solanalogo} />
         <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="h4" component="span">
+          <Typography
+            variant="subtitle1"
+            component="span"
+            sx={{ fontSize: "1.4rem" }}
+          >
             {symbol}
           </Typography>
-          {formatCurrency(lastPrice) === "N/A" ? (
-            <CircularProgress />
-          ) : (
-            <Typography variant="h6" component="span" sx={{ height: 40 }}>
-              {formatCurrency(lastPrice)}
-            </Typography>
-          )}
+          <Typography
+            variant="subtitle1"
+            component="span"
+            sx={{ color: "black" }}
+          >
+            {formatCurrency(lastPrice)}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
   );
 };
 
-export default SwitchboardCard;
+export default TickerCard;

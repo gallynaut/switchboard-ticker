@@ -9,6 +9,7 @@ import { usePageVisibility } from "react-page-visibility";
 import useInterval from "./useInterval";
 import FEEDS from "./feeds.json";
 import { SwitchboardFeed } from "./types";
+import { getCurrentTime } from "./utils";
 
 const useSwitchboard = () => {
   const connection = new Connection("https://api.devnet.solana.com");
@@ -17,19 +18,9 @@ const useSwitchboard = () => {
   const isVisible = usePageVisibility();
 
   useEffect(() => {
-    if (loading) {
-      let finishedLoading = true;
-      feeds.forEach((feed) => {
-        if (feed.lastPrice === undefined || feed.lastPrice === null) {
-          finishedLoading = false;
-        }
-      });
-      setLoading(finishedLoading);
-      if (finishedLoading) {
-        console.log("Finished loading", finishedLoading);
-      }
-    }
-  }, [feeds]);
+    refreshPrices();
+    checkLoaded();
+  }, []);
 
   const refreshPrices = async (): Promise<void> => {
     feeds.forEach(async (feed) => {
@@ -52,10 +43,24 @@ const useSwitchboard = () => {
       }
     });
   };
+  const checkLoaded = () => {
+    let finishedLoading = true;
+    feeds.forEach((feed) => {
+      if (feed.lastPrice === undefined || feed.lastPrice === null) {
+        finishedLoading = false;
+      }
+    });
+    setLoading(!finishedLoading);
+    console.log("Finished loading?", finishedLoading);
+  };
 
   // every 5 seconds
   useInterval(() => {
     if (isVisible) {
+      if (loading) {
+        checkLoaded();
+      }
+      // console.log(getCurrentTime(), " Refreshing");
       refreshPrices();
     }
   }, 5000);

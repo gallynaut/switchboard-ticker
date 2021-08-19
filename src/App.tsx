@@ -9,9 +9,9 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { usePageVisibility } from "react-page-visibility";
-import SwitchboardNiceTicker from "./SwitchboardNiceTicker";
+import { SwitchboardNiceTicker } from "./Ticker";
 import useSwitchboard from "./useSwitchboard";
-import SwitchboardCard from "./SwitchboardCard";
+import { SwitchboardCard, SwitchboardResponse } from "./Switchboard";
 import "./App.css";
 import "typeface-roboto";
 
@@ -22,13 +22,14 @@ export default function App() {
 
   return (
     <Box>
-      {loading ? (
+      {/* {loading ? (
         <Box sx={{ height: 75, backgroundColor: "white", textAlign: "center" }}>
           <CircularProgress />
         </Box>
       ) : (
         <SwitchboardNiceTicker tickers={feeds} setSelected={setSelected} />
-      )}
+      )} */}
+      <SwitchboardNiceTicker tickers={feeds} setSelected={setSelected} />
 
       <Container sx={{ marginTop: 3, width: "100%" }}>
         <h2 className="title">Switchboard Tickers</h2>
@@ -73,6 +74,11 @@ export default function App() {
                 alignItems="center"
               >
                 <h1 className="selected-feed">{selected}</h1>
+              </Grid>
+              <Grid item>
+                <SwitchboardResponse
+                  selected={feeds.find((feed) => feed.symbol === selected)}
+                />
               </Grid>
               {/* <Grid
                 container

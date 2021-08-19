@@ -1,9 +1,8 @@
 import React, { FC } from "react";
-import Ticker, { FinancialTicker } from "nice-react-ticker";
 import { Box, Paper, Button, Card, Divider } from "@material-ui/core";
-import { SwitchboardFeed } from "./types";
+import TickerList from "./TickerList";
+import { SwitchboardFeed } from "../types";
 import TickerCard from "./TickerCard";
-import "./App.css";
 
 type TickerProps = {
   tickers: SwitchboardFeed[];
@@ -26,8 +25,7 @@ const SwitchboardNiceTicker: FC<TickerProps> = ({
 
   return (
     <div className="switchboard-ticker">
-      <Ticker>{tickerCards}</Ticker>
-      {/* <Divider /> */}
+      <TickerList>{tickerCards}</TickerList>
     </div>
   );
 };
