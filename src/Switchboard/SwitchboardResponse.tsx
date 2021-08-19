@@ -20,11 +20,11 @@ import { formatCurrency } from "../utils";
 import { SwitchboardFeed } from "../types";
 
 type SwitchboardResponseProps = {
-  selected: SwitchboardFeed | undefined;
+  lastResult: AggregatorState | undefined;
 };
 
 const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
-  selected,
+  lastResult,
 }: SwitchboardResponseProps) => {
   return (
     <>
@@ -41,7 +41,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
             minHeight: "300px",
           }}
         >
-          {typeof selected?.lastResult === "undefined" ? (
+          {typeof lastResult === "undefined" ? (
             <CircularProgress />
           ) : (
             <Grid container spacing={3} alignItems="center" direction="column">
@@ -49,7 +49,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                 <Grid item xs={12}>
                   <ListItem>
                     <Typography variant="subtitle1" sx={{ m: 2 }}>
-                      {selected.lastResult?.version}
+                      {lastResult?.version}
                     </Typography>
                   </ListItem>
                 </Grid>
