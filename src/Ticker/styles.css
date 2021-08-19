@@ -9,9 +9,9 @@
 
 .ticker-list {
   display: flex;
-  flex: 0 0 100%;
-  width: 100%;
-  animation: ticker 20s infinite linear;
+  flex: 0 0;
+  /* width: 100%; */
+  animation: ticker 25s infinite linear;
 }
 
 .ticker:hover .ticker-list {
