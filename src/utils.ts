@@ -1,3 +1,4 @@
+import { keyframes } from "@emotion/react";
 import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
 
 export const formatCurrency = (price: number | null | undefined) => {
@@ -22,7 +23,7 @@ export const getCurrentTime = (): string => {
 };
 
 export const getPublicKeyString = (key: Uint8Array | undefined): string => {
-  if (typeof key === "undefined") {
+  if (!key) {
     return "";
   }
   const pubKey: PublicKey = new PublicKey(key);

@@ -46,7 +46,8 @@
   },
   {
     "key": "6SqRewrr5f4ycWy7NvLmNgpXJbhwXrtTc1erL9aq2gP3",
-    "symbol": "FTT"
+    "symbol": "FTT",
+    "isSolana": true
   },
   {
     "key": "74YzQPGUT9VnjrBz8MuyDLKgKpbDqGot5xZJvTtMi6Ng",

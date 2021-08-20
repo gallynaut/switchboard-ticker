@@ -11,12 +11,15 @@ import {
   Link,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemText,
   Typography,
   Tooltip,
   CircularProgress,
   Divider,
 } from "@material-ui/core";
 import { AggregatorState } from "@switchboard-xyz/switchboard-api";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
 import solanalogo from "../static/solana.png";
 import { formatCurrency, getPublicKeyString } from "../utils";
@@ -32,6 +35,40 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
   const optimizeResult = getPublicKeyString(
     lastResult?.parseOptimizedResultAddress
   );
+  const resultMedians = (): JSX.Element[] | JSX.Element => {
+    if (!lastResult?.currentRoundResult?.medians) {
+      return <Typography>No Values</Typography>;
+    }
+    const medians = lastResult?.currentRoundResult?.medians
+      ?.filter((m) => m)
+      .sort((a, b) => {
+        return b - a;
+      });
+    const lastPrice: number = lastResult.currentRoundResult?.result
+      ? lastResult.currentRoundResult?.result
+      : -1;
+    const medianElements: JSX.Element[] = medians.map((m) => (
+      <ListItem>
+        <ListItemIcon>
+          <ChevronRightIcon
+            color={
+              formatCurrency(lastPrice) === formatCurrency(m)
+                ? "inherit"
+                : "error"
+            }
+          />
+        </ListItemIcon>
+        <ListItemText primary={formatCurrency(m)} />
+      </ListItem>
+    ));
+
+    return medianElements;
+  };
+
+  const nodes: number = lastResult?.currentRoundResult?.numSuccess
+    ? lastResult?.currentRoundResult?.numSuccess
+    : 0;
+
   return (
     <>
       <Box>
@@ -40,76 +77,163 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
           raised
           sx={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             borderRadius: 7,
             opacity: 0.75,
             width: "100%",
             minHeight: "500px",
+            py: "50px",
           }}
         >
           {typeof lastResult === "undefined" ? (
             <CircularProgress />
           ) : (
-            <Grid
-              container
-              spacing={3}
-              alignItems="baseline"
-              direction="column"
-              sx={{ mx: 2 }}
-            >
-              <List>
-                <Grid item xs={12}>
-                  <ListItem>
+            <>
+              <Grid
+                container
+                alignItems="flex-start"
+                justifyContent="flex-start"
+              >
+                <Grid
+                  container
+                  item
+                  md={9}
+                  xs={12}
+                  alignItems="center"
+                  justifyContent="space-between"
+                  direction="row"
+                  sx={{ paddingLeft: 2 }}
+                >
+                  <Grid item xs={12} md={4}>
                     <Tooltip
                       title="switchboard config version"
                       aria-label="switchboard config version"
                     >
                       <Typography variant="subtitle1">
-                        <b>Version:</b>&nbsp;{lastResult?.version}
+                        <b>Config Version:</b>&nbsp;{lastResult?.version}
                       </Typography>
                     </Tooltip>
-                  </ListItem>
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <Tooltip
+                      title="minimum confirmations"
+                      aria-label="minimum confirmations"
+                    >
+                      <Typography variant="subtitle1">
+                        <b>Minimum Confirmations:</b>&nbsp;
+                        {lastResult?.configs?.minConfirmations
+                          ? lastResult?.configs?.minConfirmations
+                          : ""}
+                      </Typography>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <Tooltip
+                      title="is switchboard config locked"
+                      aria-label="is switchboard config locked"
+                    >
+                      <Typography variant="subtitle1">
+                        <b>Config Locked:</b>&nbsp;
+                        {lastResult?.configs?.locked ? "True" : "False"}
+                      </Typography>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <Tooltip
+                      title="minimum update delay"
+                      aria-label="minimum update delay"
+                    >
+                      <Typography variant="subtitle1">
+                        <b>Minimum Update Delay:</b>&nbsp;
+                        {lastResult?.configs?.minUpdateDelaySeconds
+                          ? `${lastResult?.configs?.minUpdateDelaySeconds}s`
+                          : ""}
+                      </Typography>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={12} sx={{ m: 2 }}>
+                    <Divider />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Tooltip
+                      title="fulfillment manager public key"
+                      aria-label="fulfillment manager public key"
+                    >
+                      <Typography variant="subtitle1">
+                        <b>Fulfilment Manager:</b>&nbsp;
+                      </Typography>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={10}>
+                    <Link
+                      href={`https://solanabeach.io/address/${fulfilKey}`}
+                      target="_blank"
+                      rel="noopener"
+                      color="inherit"
+                      underline="hover"
+                    >
+                      {fulfilKey}
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12} sx={{ m: 1 }} />
+                  <Grid item xs={2}>
+                    <Tooltip
+                      title="optimized result public key"
+                      aria-label="optimized result public key"
+                    >
+                      <Typography variant="subtitle1">
+                        <b>Optimized Result:</b>&nbsp;
+                      </Typography>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={10}>
+                    <Link
+                      href={`https://solanabeach.io/address/${optimizeResult}`}
+                      target="_blank"
+                      rel="noopener"
+                      color="inherit"
+                      underline="hover"
+                    >
+                      {optimizeResult}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <ListItem>
-                    <Typography variant="subtitle1">
-                      <b>Fulfilment Manager:</b>&nbsp;
-                      <Link
-                        href={`https://solanabeach.io/address/${fulfilKey}`}
-                        target="_blank"
-                        rel="noopener"
-                        color="inherit"
-                        underline="hover"
-                      >
-                        {fulfilKey}
-                      </Link>
+                <Grid
+                  container
+                  item
+                  md={3}
+                  xs={12}
+                  justifyContent="center"
+                  alignItems="center"
+                  direction="column"
+                >
+                  <Grid item xs={12}>
+                    <Typography variant="h5">
+                      <b>Price:</b>&nbsp;
+                      {lastResult?.currentRoundResult?.result
+                        ? formatCurrency(lastResult?.currentRoundResult?.result)
+                        : "N/A"}
                     </Typography>
-                  </ListItem>
-                </Grid>
-                <Grid item xs={12}>
-                  <ListItem>
+                  </Grid>
+                  <Grid item xs={12}>
                     <Typography variant="subtitle1">
-                      <b>Optimized Result:</b>&nbsp;
-                      <Link
-                        href={`https://solanabeach.io/address/${optimizeResult}`}
-                        target="_blank"
-                        rel="noopener"
-                        color="inherit"
-                        underline="hover"
-                      >
-                        {optimizeResult}
-                      </Link>
+                      <b>Nodes:</b>&nbsp;{nodes}
                     </Typography>
-                  </ListItem>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <List sx={{ my: 0, py: 0 }}>{resultMedians()}</List>
+                  </Grid>
                 </Grid>
-                <Divider />
-                {/* ORACLE RESPONSES GO HERE WITH COLUMNS */}
-              </List>
-            </Grid>
+              </Grid>
+              {/* ORACLE RESPONSES GO HERE WITH COLUMNS */}
+            </>
           )}
 
           {/* <Typography variant="subtitle1" sx={{ m: 2 }}>
-            {JSON.stringify(selected?.lastResult, null, 2)}
+            {JSON.stringify(lastResult, null, 2)}
           </Typography> */}
         </Card>
       </Box>
