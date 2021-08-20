@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import solanalogo from "./static/solana.png";
 import { formatCurrency } from "../utils";
 
 type TickerCardProps = {

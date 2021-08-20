@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Container, Grid, Divider } from "@material-ui/core";
+import { Box, Container, Grid, Divider } from "@material-ui/core";
 import { usePageVisibility } from "react-page-visibility";
 import { SwitchboardNiceTicker } from "./Ticker";
 import useSwitchboard from "./useSwitchboard";
-import { SwitchboardCard, SwitchboardResponse } from "./Switchboard";
+import {
+  SwitchboardCardList,
+  SwitchboardResponse,
+  SwitchboardHeader,
+} from "./Switchboard";
 import useInterval from "./useInterval";
 import "./App.css";
 import "typeface-roboto";
-import SwitchboardHeader from "./SwitchboardHeader";
 import { SwitchboardFeed } from "./types";
-import { getCurrentTime } from "./utils";
 
 export default function App() {
   const { feeds, refreshPrice } = useSwitchboard();
@@ -54,40 +56,10 @@ export default function App() {
         <SwitchboardHeader solOnly={solOnly} setSolOnly={setSolOnly} />
         <Divider sx={{ marginBottom: 2, marginTop: 0 }} />
         <Grid container spacing={2} sx={{ display: "flex", height: "100%" }}>
-          <Grid
-            container
-            item
-            xs={12}
-            md={4}
-            spacing={3}
-            component={Box}
-            className="switchboard-cards"
-            sx={{
-              height: "70vh",
-              overflow: "auto",
-              overflowY: "scroll",
-              direction: "rtl",
-              my: 2,
-            }}
-          >
-            {filteredFeeds.map((feed) => {
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  key={feed.key}
-                  sx={{ mx: 3, direction: "ltr" }}
-                >
-                  <SwitchboardCard
-                    symbol={feed.symbol}
-                    lastPrice={feed.lastPrice}
-                    setSelected={setSelected}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-
+          <SwitchboardCardList
+            tickers={filteredFeeds}
+            setSelected={setSelected}
+          />
           <Grid
             container
             item

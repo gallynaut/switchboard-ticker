@@ -21,7 +21,6 @@ import {
 import { AggregatorState } from "@switchboard-xyz/switchboard-api";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
-import solanalogo from "../static/solana.png";
 import { formatCurrency, getPublicKeyString } from "../utils";
 
 type SwitchboardResponseProps = {

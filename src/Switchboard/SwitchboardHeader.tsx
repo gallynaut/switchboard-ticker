@@ -12,9 +12,8 @@ import {
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LanguageIcon from "@material-ui/icons/Language";
 import TelegramIcon from "@material-ui/icons/Telegram";
-import DiscordIcon from "./static/DiscordIcon";
-import MediumIcon from "./static/MediumIcon";
-import "./App.css";
+import { DiscordIcon, MediumIcon } from "../static/icons";
+import "../App.css";
 
 type TickerProps = {
   solOnly: boolean;
@@ -27,13 +26,6 @@ const SwitchboardHeader: FC<TickerProps> = ({ solOnly, setSolOnly }) => {
       sx={{ background: "transparent", borderRadius: 2, width: "100%" }}
       elevation={0}
     >
-      {/* <Link
-          href="https://switchboard.xyz/"
-          target="_blank"
-          rel="noopener"
-          color="inherit"
-          underline="none"
-        > */}
       <Grid container spacing={3} justifyContent="center" alignItems="center">
         <Grid item xs={12} md={6}>
           <h2 className="title">Switchboard Tickers</h2>
@@ -50,8 +42,8 @@ const SwitchboardHeader: FC<TickerProps> = ({ solOnly, setSolOnly }) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="body1">
-            Switchboard is a community driven decentralized oracle network on
-            Solana
+            Switchboard is a community driven decentralized oracle network built
+            on Solana. Check out their social media to learn more:
           </Typography>
           <IconButton
             size="medium"

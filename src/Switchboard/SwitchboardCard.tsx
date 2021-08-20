@@ -9,8 +9,8 @@ import {
   Typography,
   CircularProgress,
 } from "@material-ui/core";
-import solanalogo from "../static/solana.png";
 import { formatCurrency } from "../utils";
+import { SolanaIcon, SolanaGradientIcon, SolanaLogo } from "../static/icons";
 
 type CardProps = {
   symbol: string;
@@ -46,7 +46,7 @@ const SwitchboardCard: FC<CardProps> = ({
           justifyContent: "flex-start",
         }}
       >
-        <Avatar sx={{ mx: 2 }} alt="logo" src={solanalogo} />
+        <Avatar sx={{ mx: 2 }} alt="logo" src={SolanaLogo} />
         <CardContent sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h4" component="span">
             {symbol}
