@@ -3,15 +3,14 @@
   background-color: #c0c0c0;
   width: 100%;
   overflow: hidden;
-  flex: 0 0 100%;
+  flex: 0 0;
   background-image: linear-gradient(90deg, #0bd3d3, #f890e7);
 }
 
 .ticker-list {
   display: flex;
   flex: 0 0;
-  /* width: 100%; */
-  animation: ticker 25s infinite linear;
+  animation: ticker 50s infinite linear;
 }
 
 .ticker:hover .ticker-list {

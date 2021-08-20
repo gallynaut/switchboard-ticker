@@ -23,9 +23,16 @@ const SwitchboardNiceTicker: FC<TickerProps> = ({
     </Box>
   ));
 
+  // Bad solution but doubling small arrays fixes
+  // bug where cards werent wrapping. setting ticker list
+  // width to 100% fixes that but causes other overlap
   return (
     <div className="switchboard-ticker">
-      <TickerList>{tickerCards}</TickerList>
+      <TickerList>
+        {tickerCards.length < 15
+          ? tickerCards.concat(tickerCards)
+          : tickerCards}
+      </TickerList>
     </div>
   );
 };
