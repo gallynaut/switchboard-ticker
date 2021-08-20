@@ -11,6 +11,18 @@ body {
   font-family: sans-serif;
   background-image: linear-gradient(90deg, #0bd3d3, #f890e7);
 }
+.switchboard-cards::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+.switchboard-cards::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.switchboard-cards::-webkit-scrollbar-thumb {
+  background-color: rgba(248, 144, 231, 0.7);
+  outline: 1px solid slategrey;
+}
 
 .title {
   font-family: MiamiFont;

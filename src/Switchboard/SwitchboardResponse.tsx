@@ -81,7 +81,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
             borderRadius: 7,
             opacity: 0.75,
             width: "100%",
-            minHeight: "500px",
+            minHeight: "550px",
             py: "50px",
           }}
         >

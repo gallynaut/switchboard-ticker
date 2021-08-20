@@ -53,18 +53,31 @@ export default function App() {
       <Container sx={{ marginTop: 3, width: "100%" }}>
         <SwitchboardHeader solOnly={solOnly} setSolOnly={setSolOnly} />
         <Divider sx={{ marginBottom: 2, marginTop: 0 }} />
-        <Grid container spacing={2} sx={{ display: "flex" }}>
+        <Grid container spacing={2} sx={{ display: "flex", height: "100%" }}>
           <Grid
             container
             item
             xs={12}
             md={4}
             spacing={3}
-            sx={{ height: "100%" }}
+            component={Box}
+            className="switchboard-cards"
+            sx={{
+              height: "70vh",
+              overflow: "auto",
+              overflowY: "scroll",
+              direction: "rtl",
+              my: 2,
+            }}
           >
             {filteredFeeds.map((feed) => {
               return (
-                <Grid item xs={12} key={feed.key} sx={{ mx: 3 }}>
+                <Grid
+                  item
+                  xs={12}
+                  key={feed.key}
+                  sx={{ mx: 3, direction: "ltr" }}
+                >
                   <SwitchboardCard
                     symbol={feed.symbol}
                     lastPrice={feed.lastPrice}
@@ -74,6 +87,7 @@ export default function App() {
               );
             })}
           </Grid>
+
           <Grid
             container
             item
