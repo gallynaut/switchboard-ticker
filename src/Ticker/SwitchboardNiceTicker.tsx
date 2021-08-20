@@ -14,7 +14,7 @@ const SwitchboardNiceTicker: FC<TickerProps> = ({
   setSelected,
 }: TickerProps) => {
   const tickerCards = tickers.map((ticker) => (
-    <Box sx={{ minWidth: "120px", mx: 2 }} key={ticker.key}>
+    <Box sx={{ minWidth: "120px", mx: 1 }} key={ticker.key}>
       <TickerCard
         symbol={ticker.symbol}
         lastPrice={ticker.lastPrice}

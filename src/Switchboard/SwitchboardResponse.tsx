@@ -12,6 +12,7 @@ import {
   List,
   ListItem,
   Typography,
+  Tooltip,
   CircularProgress,
   Divider,
 } from "@material-ui/core";
@@ -28,6 +29,9 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
   lastResult,
 }: SwitchboardResponseProps) => {
   const fulfilKey = getPublicKeyString(lastResult?.fulfillmentManagerPubkey);
+  const optimizeResult = getPublicKeyString(
+    lastResult?.parseOptimizedResultAddress
+  );
   return (
     <>
       <Box>
@@ -49,21 +53,27 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
             <Grid
               container
               spacing={3}
-              alignItems="flex-start"
+              alignItems="baseline"
               direction="column"
+              sx={{ mx: 2 }}
             >
               <List>
                 <Grid item xs={12}>
                   <ListItem>
-                    <Typography variant="subtitle1" sx={{ m: 2 }}>
-                      <b>Version:</b> {lastResult?.version}
-                    </Typography>
+                    <Tooltip
+                      title="switchboard config version"
+                      aria-label="switchboard config version"
+                    >
+                      <Typography variant="subtitle1">
+                        <b>Version:</b>&nbsp;{lastResult?.version}
+                      </Typography>
+                    </Tooltip>
                   </ListItem>
                 </Grid>
                 <Grid item xs={12}>
                   <ListItem>
-                    <Typography variant="subtitle1" sx={{ m: 2 }}>
-                      <b>Fulfilment Manager:</b>{" "}
+                    <Typography variant="subtitle1">
+                      <b>Fulfilment Manager:</b>&nbsp;
                       <Link
                         href={`https://solanabeach.io/address/${fulfilKey}`}
                         target="_blank"
@@ -76,7 +86,24 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                     </Typography>
                   </ListItem>
                 </Grid>
+                <Grid item xs={12}>
+                  <ListItem>
+                    <Typography variant="subtitle1">
+                      <b>Optimized Result:</b>&nbsp;
+                      <Link
+                        href={`https://solanabeach.io/address/${optimizeResult}`}
+                        target="_blank"
+                        rel="noopener"
+                        color="inherit"
+                        underline="hover"
+                      >
+                        {optimizeResult}
+                      </Link>
+                    </Typography>
+                  </ListItem>
+                </Grid>
                 <Divider />
+                {/* ORACLE RESPONSES GO HERE WITH COLUMNS */}
               </List>
             </Grid>
           )}

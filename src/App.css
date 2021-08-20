@@ -17,6 +17,8 @@ body {
   font-style: normal;
   font-size: 3em;
   color: "#f890e7";
+  margin: auto;
+  margin-bottom: 0;
 }
 
 .selected-feed {
@@ -31,4 +33,13 @@ body {
 .miami {
   font-family: MiamiFont;
   font-style: normal;
+}
+
+.solana-switch {
+  font-family: MiamiFont;
+  font-style: normal;
+  font-size: 2em;
+  margin-top: 0;
+  padding-left: 4;
+  color: "#f890e7";
 }

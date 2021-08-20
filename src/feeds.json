@@ -1,7 +1,52 @@
 [
   {
     "key": "AdtRGGhmqvom3Jemp5YNrxd9q9unX36BZk1pujkkXijL",
-    "symbol": "SOL"
+    "symbol": "SOL",
+    "isSolana": true
+  },
+  {
+    "key": "C1X7qfn59AKGzeUMtfxDgfyGT3VfQLyAoTpv7ULWmmvm",
+    "symbol": "MNGO",
+    "isSolana": true
+  },
+  {
+    "key": "EHwSRkm2ErRjWxCxrTxrmC7sT2kGb5jJcsiindUHAX7W",
+    "symbol": "ORCA",
+    "isSolana": true
+  },
+  {
+    "key": "G26LmGqGvoggYQm2zEKD15rL4LutkZFrtP8mRPd6gPjk",
+    "symbol": "PAI",
+    "isSolana": true
+  },
+  {
+    "key": "Lp3VNoRQi699VZe6u59TV8J38ELEUzxkaisoWsDuJgB",
+    "symbol": "SBR",
+    "isSolana": true
+  },
+  {
+    "key": "5pHX3fd81SpGywzsw4R12L3Xu3qd418h1PcnHpQAiMWA",
+    "symbol": "MER",
+    "isSolana": true
+  },
+  {
+    "key": "CppyF6264uKZkGua1brTUa2fSVdMFSCszwzDs76HCuzU",
+    "symbol": "RAY",
+    "isSolana": true
+  },
+  {
+    "key": "14nae7WbZaSxu6qENnjrG2zPWDZ1UsPYiJcFU6LyAnhK",
+    "symbol": "KIN",
+    "isSolana": true
+  },
+  {
+    "key": "4bTCjzmtdRgK4ZvdaxX1Fx1Z3h6iApfM5qoaAhQBJAkj",
+    "symbol": "STEP",
+    "isSolana": true
+  },
+  {
+    "key": "6SqRewrr5f4ycWy7NvLmNgpXJbhwXrtTc1erL9aq2gP3",
+    "symbol": "FTT"
   },
   {
     "key": "74YzQPGUT9VnjrBz8MuyDLKgKpbDqGot5xZJvTtMi6Ng",
@@ -50,5 +95,17 @@
   {
     "key": "7oAeNhb1ZB1v5VFxLYL6NRNUJqFWiffdRc8kC5eEGTGg",
     "symbol": "AVAX"
+  },
+  {
+    "key": "6YkXAM6W2EQa3ijQMm6XdfFyaovHJYZ6FwCruNY9Hf3c",
+    "symbol": "XTZ"
+  },
+  {
+    "key": "Hb8zFcXqQ2GKGcodhr5Up6KeALzRxEUtL5p6iYNMrjkg",
+    "symbol": "ICP"
+  },
+  {
+    "key": "2aa9p78uYzbpbc2iqXBGX1uqNijQnFhdBZ4QUu3ZXN2m",
+    "symbol": "EOS"
   }
 ]
