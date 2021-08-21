@@ -25,22 +25,7 @@ const SwitchboardCardList: FC<SwitchboardCardListProps> = ({
   setSelected,
 }) => {
   return (
-    <Grid
-      container
-      item
-      xs={12}
-      md={4}
-      spacing={3}
-      component={Box}
-      className="switchboard-cards"
-      sx={{
-        height: "70vh",
-        overflow: "auto",
-        overflowY: "scroll",
-        direction: "rtl",
-        my: 2,
-      }}
-    >
+    <>
       {tickers.map((feed) => {
         return (
           <Grid item xs={12} key={feed.key} sx={{ mx: 3, direction: "ltr" }}>
@@ -52,7 +37,7 @@ const SwitchboardCardList: FC<SwitchboardCardListProps> = ({
           </Grid>
         );
       })}
-    </Grid>
+    </>
   );
 };
 

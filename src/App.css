@@ -50,8 +50,8 @@ body {
 .solana-switch {
   font-family: MiamiFont;
   font-style: normal;
+  font-weight: 400;
   font-size: 2em;
   margin-top: 0;
-  padding-left: 4;
   color: "#f890e7";
 }

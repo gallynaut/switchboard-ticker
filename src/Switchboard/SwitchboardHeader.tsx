@@ -12,15 +12,20 @@ import {
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LanguageIcon from "@material-ui/icons/Language";
 import TelegramIcon from "@material-ui/icons/Telegram";
-import { DiscordIcon, MediumIcon } from "../static/icons";
+import { DiscordIcon, MediumIcon, SwitchboardIcon } from "../static/icons";
 import "../App.css";
 
 type TickerProps = {
   solOnly: boolean;
   setSolOnly: React.Dispatch<React.SetStateAction<boolean>>;
+  // lastUpdated: string;
 };
 
-const SwitchboardHeader: FC<TickerProps> = ({ solOnly, setSolOnly }) => {
+const SwitchboardHeader: FC<TickerProps> = ({
+  solOnly,
+  setSolOnly,
+  // lastUpdated,
+}) => {
   return (
     <Card
       sx={{ background: "transparent", borderRadius: 2, width: "100%" }}
@@ -28,8 +33,9 @@ const SwitchboardHeader: FC<TickerProps> = ({ solOnly, setSolOnly }) => {
     >
       <Grid container spacing={3} justifyContent="center" alignItems="center">
         <Grid item xs={12} md={6}>
-          <h2 className="title">Switchboard Tickers</h2>
+          <h2 className="title">Solana Oracle</h2>
           <FormControlLabel
+            sx={{ marginLeft: 2 }}
             control={
               <Switch
                 checked={solOnly}
@@ -39,8 +45,16 @@ const SwitchboardHeader: FC<TickerProps> = ({ solOnly, setSolOnly }) => {
             }
             label={<div className="solana-switch">Solana Only</div>}
           />
+          {/* <Typography variant="body1" sx={{ marginLeft: 3, fontWeight: 700 }}>
+            {`Last Updated: ${lastUpdated}s ago`}
+          </Typography> */}
         </Grid>
         <Grid item xs={12} md={6}>
+          <Typography variant="body1" sx={{ fontWeight: 600 }}>
+            Powered By:{" "}
+            <SwitchboardIcon sx={{ fontWeight: 300, fontSize: "1.5em" }} />{" "}
+            Switchboard.xyz
+          </Typography>
           <Typography variant="body1">
             Switchboard is a community driven decentralized oracle network built
             on Solana. Check out their social media to learn more:

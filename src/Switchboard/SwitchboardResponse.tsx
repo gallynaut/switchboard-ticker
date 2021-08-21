@@ -1,13 +1,9 @@
 import React, { FC } from "react";
 import {
-  Avatar,
   Box,
   Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActionArea,
   Grid,
+  Hidden,
   Link,
   List,
   ListItem,
@@ -20,7 +16,6 @@ import {
 } from "@material-ui/core";
 import { AggregatorState } from "@switchboard-xyz/switchboard-api";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { PublicKey, PublicKeyInitData } from "@solana/web3.js";
 import { formatCurrency, getPublicKeyString } from "../utils";
 
 type SwitchboardResponseProps = {
@@ -103,7 +98,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                   direction="row"
                   sx={{ paddingLeft: 2 }}
                 >
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} order={{ xs: 1, md: 1 }}>
                     <Tooltip
                       title="switchboard config version"
                       aria-label="switchboard config version"
@@ -113,7 +108,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                       </Typography>
                     </Tooltip>
                   </Grid>
-                  <Grid item xs={12} md={8}>
+                  <Grid item xs={12} md={8} order={{ xs: 3, md: 2 }}>
                     <Tooltip
                       title="minimum confirmations"
                       aria-label="minimum confirmations"
@@ -126,7 +121,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                       </Typography>
                     </Tooltip>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} order={{ xs: 2, md: 3 }}>
                     <Tooltip
                       title="is switchboard config locked"
                       aria-label="is switchboard config locked"
@@ -137,7 +132,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                       </Typography>
                     </Tooltip>
                   </Grid>
-                  <Grid item xs={12} md={8}>
+                  <Grid item xs={12} md={8} order={{ xs: 4, md: 4 }}>
                     <Tooltip
                       title="minimum update delay"
                       aria-label="minimum update delay"
@@ -150,52 +145,54 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                       </Typography>
                     </Tooltip>
                   </Grid>
-                  <Grid item xs={12} sx={{ m: 2 }}>
+                  <Grid item xs={12} sx={{ m: 2 }} order={{ xs: 5, md: 5 }}>
                     <Divider />
                   </Grid>
-                  <Grid item xs={2}>
-                    <Tooltip
-                      title="fulfillment manager public key"
-                      aria-label="fulfillment manager public key"
-                    >
-                      <Typography variant="subtitle1">
-                        <b>Fulfilment Manager:</b>&nbsp;
-                      </Typography>
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Link
-                      href={`https://solanabeach.io/address/${fulfilKey}`}
-                      target="_blank"
-                      rel="noopener"
-                      color="inherit"
-                      underline="hover"
-                    >
-                      {fulfilKey}
-                    </Link>
-                  </Grid>
-                  <Grid item xs={12} sx={{ m: 1 }} />
-                  <Grid item xs={2}>
-                    <Tooltip
-                      title="optimized result public key"
-                      aria-label="optimized result public key"
-                    >
-                      <Typography variant="subtitle1">
-                        <b>Optimized Result:</b>&nbsp;
-                      </Typography>
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Link
-                      href={`https://solanabeach.io/address/${optimizeResult}`}
-                      target="_blank"
-                      rel="noopener"
-                      color="inherit"
-                      underline="hover"
-                    >
-                      {optimizeResult}
-                    </Link>
-                  </Grid>
+                  <Hidden mdDown>
+                    <Grid item xs={12} md={2} order={{ xs: 6, md: 6 }}>
+                      <Tooltip
+                        title="fulfillment manager public key"
+                        aria-label="fulfillment manager public key"
+                      >
+                        <Typography variant="subtitle1">
+                          <b>Fulfilment Manager:</b>&nbsp;
+                        </Typography>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={12} md={10} order={{ xs: 7, md: 7 }}>
+                      <Link
+                        href={`https://solanabeach.io/address/${fulfilKey}`}
+                        target="_blank"
+                        rel="noopener"
+                        color="inherit"
+                        underline="hover"
+                      >
+                        {fulfilKey}
+                      </Link>
+                    </Grid>
+                    <Grid item xs={12} sx={{ m: 1 }} order={{ xs: 8, md: 8 }} />
+                    <Grid item xs={12} md={2} order={{ xs: 9, md: 9 }}>
+                      <Tooltip
+                        title="optimized result public key"
+                        aria-label="optimized result public key"
+                      >
+                        <Typography variant="subtitle1">
+                          <b>Optimized Result:</b>&nbsp;
+                        </Typography>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={12} md={10} order={{ xs: 10, md: 10 }}>
+                      <Link
+                        href={`https://solanabeach.io/address/${optimizeResult}`}
+                        target="_blank"
+                        rel="noopener"
+                        color="inherit"
+                        underline="hover"
+                      >
+                        {optimizeResult}
+                      </Link>
+                    </Grid>
+                  </Hidden>
                 </Grid>
                 <Grid
                   container
