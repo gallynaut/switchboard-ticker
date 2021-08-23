@@ -26,6 +26,7 @@ const useSwitchboard = () => {
                 ...f,
                 lastPrice: resp.currentRoundResult?.result,
                 lastResult: resp,
+                lastUpdated: getCurrentTime(),
               };
             }
             return f;

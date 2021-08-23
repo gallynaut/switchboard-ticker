@@ -7,4 +7,5 @@ export interface SwitchboardFeed {
   isSolana?: boolean;
   lastPrice?: number | null;
   lastResult?: AggregatorState;
+  lastUpdated?: string;
 }

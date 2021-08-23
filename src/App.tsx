@@ -121,6 +121,7 @@ export default function App() {
                   lastResult={
                     feeds.find((feed) => feed.symbol === selected)?.lastResult
                   }
+                  feed={feeds.find((feed) => feed.symbol === selected)}
                 />
               </Grid>
             </Grid>

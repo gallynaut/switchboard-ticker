@@ -18,13 +18,16 @@ import { AggregatorState } from "@switchboard-xyz/switchboard-api";
 import { v4 as uuidv4 } from "uuid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { formatCurrency, getPublicKeyString } from "../utils";
+import { SwitchboardFeed } from "../types";
 
 type SwitchboardResponseProps = {
   lastResult: AggregatorState | undefined;
+  feed: SwitchboardFeed | undefined;
 };
 
 const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
   lastResult,
+  feed,
 }: SwitchboardResponseProps) => {
   const fulfilKey = getPublicKeyString(lastResult?.fulfillmentManagerPubkey);
   const optimizeResult = getPublicKeyString(
@@ -169,6 +172,15 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
     ? lastResult?.currentRoundResult?.numSuccess
     : 0;
 
+  const lastUpdated = () => {
+    return (
+      <Box order={{ xs: 99, md: 99 }}>
+        <Typography component="span">Last Updated: </Typography>
+        <Typography component="span">{feed?.lastUpdated} </Typography>
+      </Box>
+    );
+  };
+
   return (
     <>
       <Box>
@@ -206,6 +218,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                 >
                   {configHeader()}
                   {managementKeys()}
+                  {/* {lastUpdated()} */}
                 </Grid>
                 <Grid
                   container
@@ -235,6 +248,22 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                   <Grid item xs={12}>
                     <List sx={{ my: 0, py: 0 }}>{resultMedians()}</List>
                   </Grid>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    position: "sticky",
+                    bottom: 0,
+                    right: 0,
+                    zIndex: "modal",
+                  }}
+                >
+                  <Grid item xs={12}>
+                    <Divider />
+                  </Grid>
+                  <Typography component="span">Last Updated: </Typography>
+                  <Typography component="span">{feed?.lastUpdated} </Typography>
                 </Grid>
               </Grid>
               {/* ORACLE RESPONSES GO HERE WITH COLUMNS */}
