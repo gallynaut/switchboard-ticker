@@ -18,13 +18,13 @@ import "../App.css";
 type TickerProps = {
   solOnly: boolean;
   setSolOnly: React.Dispatch<React.SetStateAction<boolean>>;
-  // lastUpdated: string;
+  lastUpdated: string;
 };
 
 const SwitchboardHeader: FC<TickerProps> = ({
   solOnly,
   setSolOnly,
-  // lastUpdated,
+  lastUpdated,
 }) => {
   return (
     <Card
@@ -32,22 +32,39 @@ const SwitchboardHeader: FC<TickerProps> = ({
       elevation={0}
     >
       <Grid container spacing={3} justifyContent="center" alignItems="center">
-        <Grid item xs={12} md={6}>
-          <h2 className="title">Solana Oracle</h2>
-          <FormControlLabel
-            sx={{ marginLeft: 2 }}
-            control={
-              <Switch
-                checked={solOnly}
-                onChange={() => setSolOnly(!solOnly)}
-                name="Solana Tokens Only"
-              />
-            }
-            label={<div className="solana-switch">Solana Only</div>}
-          />
-          {/* <Typography variant="body1" sx={{ marginLeft: 3, fontWeight: 700 }}>
-            {`Last Updated: ${lastUpdated}s ago`}
-          </Typography> */}
+        <Grid
+          item
+          container
+          xs={12}
+          md={6}
+          direction="column"
+          alignItems="baseline"
+          spacing={1}
+        >
+          <Grid item xs={12}>
+            <h2 className="title">Solana Oracle</h2>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              sx={{ marginLeft: 1 }}
+              control={
+                <Switch
+                  checked={solOnly}
+                  onChange={() => setSolOnly(!solOnly)}
+                  name="Solana Tokens Only"
+                />
+              }
+              label={<div className="solana-switch">Solana Only</div>}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography component="span" variant="h6" sx={{ marginLeft: 3 }}>
+              {`Last Updated: `}
+            </Typography>
+            <Typography component="span" variant="h5" sx={{ marginLeft: 3 }}>
+              {lastUpdated}
+            </Typography>
+          </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="body1" sx={{ fontWeight: 600 }}>

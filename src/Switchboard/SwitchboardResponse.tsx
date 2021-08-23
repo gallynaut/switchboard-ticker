@@ -15,6 +15,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import { AggregatorState } from "@switchboard-xyz/switchboard-api";
+import { v4 as uuidv4 } from "uuid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { formatCurrency, getPublicKeyString } from "../utils";
 
@@ -42,7 +43,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
       ? lastResult.currentRoundResult?.result
       : -1;
     const medianElements: JSX.Element[] = medians.map((m) => (
-      <ListItem>
+      <ListItem key={uuidv4()}>
         <ListItemIcon>
           <ChevronRightIcon
             color={

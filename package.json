@@ -22,7 +22,8 @@
     "react-ticker": "^1.2.2",
     "smoothscroll-polyfill": "^0.4.4",
     "typeface-roboto": "^1.1.13",
-    "typescript": "latest"
+    "typescript": "latest",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -48,6 +49,7 @@
     "@types/react-helmet": "^6.1.2",
     "@types/react-page-visibility": "^6.4.1",
     "@types/smoothscroll-polyfill": "^0.3.1",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "eslint": "^7.25.0",

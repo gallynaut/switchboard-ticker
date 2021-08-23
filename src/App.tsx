@@ -12,11 +12,13 @@ import useInterval from "./useInterval";
 import "./App.css";
 import "typeface-roboto";
 import { SwitchboardFeed } from "./types";
+import { getCurrentTime } from "./utils";
 
 export default function App() {
+  const isVisible = usePageVisibility();
   const { feeds, refreshPrice } = useSwitchboard();
   const [selected, setSelected] = useState<string>("SOL");
-  const [lastUpdated, setLastUpdated] = useState<number>(0);
+  const [lastUpdated, setLastUpdated] = useState<string>("");
   const [solOnly, setSolOnly] = useState<boolean>(true);
   const filterList = (): SwitchboardFeed[] => {
     if (solOnly) {
@@ -24,22 +26,24 @@ export default function App() {
     }
     return feeds;
   };
+
   const [filteredFeeds, setFilteredFeeds] = useState<SwitchboardFeed[]>(
     filterList()
   );
 
+  const refreshFeeds = async () => {
+    setLastUpdated(getCurrentTime());
+    filteredFeeds.forEach(async (feed) => {
+      const result = await refreshPrice(feed.key);
+      if (!result) {
+        console.log(getCurrentTime(), "error fetching", feed.symbol);
+      }
+    });
+  };
+
   useEffect(() => {
     setFilteredFeeds(filterList());
   }, [solOnly, feeds]);
-
-  const isVisible = usePageVisibility();
-
-  const refreshFeeds = () => {
-    setLastUpdated(Date.now());
-    filteredFeeds.forEach((feed) => {
-      refreshPrice(feed.key);
-    });
-  };
 
   useEffect(() => {
     if (isVisible) {
@@ -47,7 +51,7 @@ export default function App() {
     }
   }, [isVisible]);
 
-  // every 30 seconds
+  // every 15 seconds
   useInterval(() => {
     if (isVisible) {
       refreshFeeds();
@@ -65,11 +69,7 @@ export default function App() {
         <SwitchboardHeader
           solOnly={solOnly}
           setSolOnly={setSolOnly}
-          // lastUpdated={
-          //   lastUpdated
-          //     ? Math.floor((Date.now() - lastUpdated) / 1000).toString()
-          //     : "N/A"
-          // }
+          lastUpdated={lastUpdated}
         />
         <Divider sx={{ marginBottom: 2, marginTop: 0 }} />
         <Grid container spacing={2} sx={{ display: "flex", height: "100%" }}>

@@ -1,5 +1,16 @@
 import React, { FC } from "react";
-import { Box, Paper, Button, Card, Divider } from "@material-ui/core";
+import {
+  Box,
+  Paper,
+  Typography,
+  Hidden,
+  Button,
+  Card,
+  Divider,
+  useMediaQuery,
+} from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import { v4 as uuidv4 } from "uuid";
 import TickerList from "./TickerList";
 import { SwitchboardFeed } from "../types";
 import TickerCard from "./TickerCard";
@@ -13,15 +24,20 @@ const SwitchboardNiceTicker: FC<TickerProps> = ({
   tickers,
   setSelected,
 }: TickerProps) => {
-  const tickerCards = tickers.map((ticker) => (
-    <Box sx={{ minWidth: "120px", mx: 1 }} key={ticker.key}>
-      <TickerCard
-        symbol={ticker.symbol}
-        lastPrice={ticker.lastPrice}
-        setSelected={setSelected}
-      />
-    </Box>
-  ));
+  const theme = useTheme();
+  const lgScreen = useMediaQuery(theme.breakpoints.up("xl"));
+
+  const getTickerCards = () => {
+    return tickers.map((ticker) => (
+      <Box sx={{ minWidth: "120px", mx: 1 }} key={uuidv4()}>
+        <TickerCard
+          symbol={ticker.symbol}
+          lastPrice={ticker.lastPrice}
+          setSelected={setSelected}
+        />
+      </Box>
+    ));
+  };
 
   // Bad solution but doubling small arrays fixes
   // bug where cards werent wrapping. setting ticker list
@@ -29,9 +45,10 @@ const SwitchboardNiceTicker: FC<TickerProps> = ({
   return (
     <div className="switchboard-ticker">
       <TickerList>
-        {tickerCards.length < 15
-          ? tickerCards.concat(tickerCards)
-          : tickerCards}
+        {getTickerCards()}
+        {tickers.length < 15 && lgScreen ? getTickerCards() : <></>}
+        {/* <Hidden mdDown>
+        </Hidden> */}
       </TickerList>
     </div>
   );

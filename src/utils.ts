@@ -39,7 +39,22 @@ const currencyFormatter4 = new Intl.NumberFormat("en-US", {
 
 export const getCurrentTime = (): string => {
   const today = new Date();
-  return `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+  const hours =
+    today.getHours() > 12
+      ? (today.getHours() - 12).toLocaleString("en-US", {
+          minimumIntegerDigits: 1,
+        })
+      : today.getHours().toLocaleString("en-US", {
+          minimumIntegerDigits: 1,
+        });
+  const minutes = today.getMinutes().toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+  });
+  const seconds = today.getSeconds().toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+  });
+  const timeOfDay = today.getHours() > 12 ? "PM" : "AM";
+  return `${hours}:${minutes}:${seconds} ${timeOfDay}`;
 };
 
 export const getPublicKeyString = (key: Uint8Array | undefined): string => {

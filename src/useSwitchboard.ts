@@ -14,7 +14,7 @@ const useSwitchboard = () => {
   const connection = new Connection("https://api.devnet.solana.com");
   const [feeds, setFeeds] = useState<SwitchboardFeed[]>(FEEDS);
 
-  const refreshPrice = async (key: string): Promise<void> => {
+  const refreshPrice = async (key: string): Promise<boolean> => {
     const pKey = new PublicKey(key);
     try {
       const resp = await parseAggregatorAccountData(connection, pKey);
@@ -33,9 +33,11 @@ const useSwitchboard = () => {
           return updatedState;
         });
       }
+      return true;
     } catch (error) {
       console.error(error);
     }
+    return false;
   };
 
   return { feeds, refreshPrice };
