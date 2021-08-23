@@ -56,7 +56,7 @@ export default function App() {
     if (isVisible) {
       refreshFeeds();
     }
-  }, 10000);
+  }, 15000);
 
   return (
     <Box>
