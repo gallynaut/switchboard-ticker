@@ -14,24 +14,23 @@ import {
   CircularProgress,
   Divider,
 } from "@material-ui/core";
-import { AggregatorState } from "@switchboard-xyz/switchboard-api";
 import { v4 as uuidv4 } from "uuid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { formatCurrency, getPublicKeyString } from "../utils";
 import { SwitchboardFeed } from "../types";
 
 type SwitchboardResponseProps = {
-  lastResult: AggregatorState | undefined;
   feed: SwitchboardFeed | undefined;
 };
 
 const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
-  lastResult,
   feed,
 }: SwitchboardResponseProps) => {
-  const fulfilKey = getPublicKeyString(lastResult?.fulfillmentManagerPubkey);
+  const fulfilKey = getPublicKeyString(
+    feed?.lastResult?.fulfillmentManagerPubkey
+  );
   const optimizeResult = getPublicKeyString(
-    lastResult?.parseOptimizedResultAddress
+    feed?.lastResult?.parseOptimizedResultAddress
   );
   const configHeader = () => {
     return (
@@ -42,7 +41,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
             aria-label="switchboard config version"
           >
             <Typography variant="subtitle1">
-              <b>Config Version:</b>&nbsp;{lastResult?.version}
+              <b>Config Version:</b>&nbsp;{feed?.lastResult?.version}
             </Typography>
           </Tooltip>
         </Grid>
@@ -53,8 +52,8 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
           >
             <Typography variant="subtitle1">
               <b>Minimum Confirmations:</b>&nbsp;
-              {lastResult?.configs?.minConfirmations
-                ? lastResult?.configs?.minConfirmations
+              {feed?.lastResult?.configs?.minConfirmations
+                ? feed?.lastResult?.configs?.minConfirmations
                 : ""}
             </Typography>
           </Tooltip>
@@ -66,7 +65,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
           >
             <Typography variant="subtitle1">
               <b>Config Locked:</b>&nbsp;
-              {lastResult?.configs?.locked ? "True" : "False"}
+              {feed?.lastResult?.configs?.locked ? "True" : "False"}
             </Typography>
           </Tooltip>
         </Grid>
@@ -77,8 +76,8 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
           >
             <Typography variant="subtitle1">
               <b>Minimum Update Delay:</b>&nbsp;
-              {lastResult?.configs?.minUpdateDelaySeconds
-                ? `${lastResult?.configs?.minUpdateDelaySeconds}s`
+              {feed?.lastResult?.configs?.minUpdateDelaySeconds
+                ? `${feed?.lastResult?.configs?.minUpdateDelaySeconds}s`
                 : ""}
             </Typography>
           </Tooltip>
@@ -139,16 +138,16 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
     );
   };
   const resultMedians = (): JSX.Element[] | JSX.Element => {
-    if (!lastResult?.currentRoundResult?.medians) {
+    if (!feed?.lastResult?.currentRoundResult?.medians) {
       return <Typography>No Values</Typography>;
     }
-    const medians = lastResult?.currentRoundResult?.medians
+    const medians = feed?.lastResult?.currentRoundResult?.medians
       ?.filter((m) => m)
       .sort((a, b) => {
         return b - a;
       });
-    const lastPrice: number = lastResult.currentRoundResult?.result
-      ? lastResult.currentRoundResult?.result
+    const lastPrice: number = feed?.lastResult.currentRoundResult?.result
+      ? feed?.lastResult.currentRoundResult?.result
       : -1;
     const medianElements: JSX.Element[] = medians.map((m) => (
       <ListItem key={uuidv4()}>
@@ -168,8 +167,8 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
     return medianElements;
   };
 
-  const nodes: number = lastResult?.currentRoundResult?.numSuccess
-    ? lastResult?.currentRoundResult?.numSuccess
+  const nodes: number = feed?.lastResult?.currentRoundResult?.numSuccess
+    ? feed?.lastResult?.currentRoundResult?.numSuccess
     : 0;
 
   const lastUpdated = () => {
@@ -197,7 +196,8 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
             py: "50px",
           }}
         >
-          {typeof lastResult === "undefined" ? (
+          {typeof feed === "undefined" ||
+          typeof feed?.lastResult === "undefined" ? (
             <CircularProgress />
           ) : (
             <>
@@ -232,8 +232,10 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
                   <Grid item xs={12}>
                     <Typography variant="h5">
                       <b>Price:</b>&nbsp;
-                      {lastResult?.currentRoundResult?.result
-                        ? formatCurrency(lastResult?.currentRoundResult?.result)
+                      {feed?.lastResult?.currentRoundResult?.result
+                        ? formatCurrency(
+                            feed?.lastResult?.currentRoundResult?.result
+                          )
                         : "N/A"}
                     </Typography>
                   </Grid>

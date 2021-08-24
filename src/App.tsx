@@ -118,9 +118,6 @@ export default function App() {
               </Grid>
               <Grid item>
                 <SwitchboardResponse
-                  lastResult={
-                    feeds.find((feed) => feed.symbol === selected)?.lastResult
-                  }
                   feed={feeds.find((feed) => feed.symbol === selected)}
                 />
               </Grid>
