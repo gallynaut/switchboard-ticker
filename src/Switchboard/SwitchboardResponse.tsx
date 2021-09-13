@@ -137,7 +137,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
       </Hidden>
     );
   };
-  const resultMedians = (): JSX.Element[] | JSX.Element => {
+  const resultMedianList = (): JSX.Element[] | JSX.Element => {
     if (!feed?.lastResult?.currentRoundResult?.medians) {
       return <Typography>No Values</Typography>;
     }
@@ -149,7 +149,7 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
     const lastPrice: number = feed?.lastResult.currentRoundResult?.result
       ? feed?.lastResult.currentRoundResult?.result
       : -1;
-    const medianElements: JSX.Element[] = medians.map((m) => (
+    const medianList = medians.map((m) => (
       <ListItem key={uuidv4()}>
         <ListItemIcon>
           <ChevronRightIcon
@@ -163,120 +163,111 @@ const SwitchboardResponse: FC<SwitchboardResponseProps> = ({
         <ListItemText primary={formatCurrency(m)} />
       </ListItem>
     ));
-
-    return medianElements;
+    return (
+      <Grid item xs={12}>
+        <List sx={{ my: 0, py: 0 }}>{medianList}</List>
+      </Grid>
+    );
   };
 
   const nodes: number = feed?.lastResult?.currentRoundResult?.numSuccess
     ? feed?.lastResult?.currentRoundResult?.numSuccess
     : 0;
 
-  const lastUpdated = () => {
+  const recentPrice = () => {
     return (
-      <Box order={{ xs: 99, md: 99 }}>
-        <Typography component="span">Last Updated: </Typography>
-        <Typography component="span">{feed?.lastUpdated} </Typography>
-      </Box>
+      <Grid item xs={12}>
+        <Typography variant="h5">
+          <b>Price:</b>&nbsp;
+          {feed?.lastResult?.currentRoundResult?.result
+            ? formatCurrency(feed?.lastResult?.currentRoundResult?.result)
+            : "N/A"}
+        </Typography>
+      </Grid>
+    );
+  };
+  const nodeCount = () => {
+    return (
+      <Grid item xs={12}>
+        <Typography variant="subtitle1">
+          <b>Nodes:</b>&nbsp;{nodes}
+        </Typography>
+      </Grid>
+    );
+  };
+  const dividerGridItem = () => {
+    return (
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
     );
   };
 
   return (
     <>
-      <Box>
-        <Card
-          elevation={6}
-          raised
-          sx={{
-            display: "flex",
-            alignItems: "flex-start",
-            borderRadius: 7,
-            opacity: 0.75,
-            width: "100%",
-            minHeight: "550px",
-            py: "50px",
-          }}
-        >
-          {typeof feed === "undefined" ||
-          typeof feed?.lastResult === "undefined" ? (
-            <CircularProgress />
-          ) : (
-            <>
+      <Card
+        elevation={6}
+        raised
+        sx={{
+          display: "flex",
+          alignItems: "flex-start",
+          borderRadius: 7,
+          opacity: 0.75,
+          width: "100%",
+          minHeight: "550px",
+          py: "50px",
+        }}
+      >
+        {typeof feed === "undefined" ||
+        typeof feed?.lastResult === "undefined" ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <Grid container alignItems="flex-start" justifyContent="flex-start">
               <Grid
                 container
-                alignItems="flex-start"
-                justifyContent="flex-start"
+                item
+                md={9}
+                xs={12}
+                alignItems="center"
+                justifyContent="space-between"
+                direction="row"
+                sx={{ paddingLeft: 2 }}
               >
-                <Grid
-                  container
-                  item
-                  md={9}
-                  xs={12}
-                  alignItems="center"
-                  justifyContent="space-between"
-                  direction="row"
-                  sx={{ paddingLeft: 2 }}
-                >
-                  {configHeader()}
-                  {managementKeys()}
-                  {/* {lastUpdated()} */}
-                </Grid>
-                <Grid
-                  container
-                  item
-                  md={3}
-                  xs={12}
-                  justifyContent="center"
-                  alignItems="center"
-                  direction="column"
-                >
-                  <Grid item xs={12}>
-                    <Typography variant="h5">
-                      <b>Price:</b>&nbsp;
-                      {feed?.lastResult?.currentRoundResult?.result
-                        ? formatCurrency(
-                            feed?.lastResult?.currentRoundResult?.result
-                          )
-                        : "N/A"}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="subtitle1">
-                      <b>Nodes:</b>&nbsp;{nodes}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <List sx={{ my: 0, py: 0 }}>{resultMedians()}</List>
-                  </Grid>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sx={{
-                    position: "sticky",
-                    bottom: 0,
-                    right: 0,
-                    zIndex: "modal",
-                  }}
-                >
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
+                {configHeader()}
+                {managementKeys()}
+                {/* {lastUpdated()} */}
+              </Grid>
+              <Grid
+                container
+                item
+                md={3}
+                xs={12}
+                justifyContent="center"
+                alignItems="center"
+                direction="column"
+              >
+                {recentPrice()}
+                {nodeCount()}
+                {dividerGridItem()}
+                {resultMedianList()}
+              </Grid>
+              <Grid item container xs={12}>
+                {dividerGridItem()}
+                <Grid item xs={12}>
                   <Typography component="span">Last Updated: </Typography>
                   <Typography component="span">{feed?.lastUpdated} </Typography>
                 </Grid>
               </Grid>
-              {/* ORACLE RESPONSES GO HERE WITH COLUMNS */}
-            </>
-          )}
+            </Grid>
+            {/* ORACLE RESPONSES GO HERE WITH COLUMNS */}
+          </>
+        )}
 
-          {/* <Typography variant="subtitle1" sx={{ m: 2 }}>
+        {/* <Typography variant="subtitle1" sx={{ m: 2 }}>
             {JSON.stringify(lastResult, null, 2)}
           </Typography> */}
-        </Card>
-      </Box>
+      </Card>
     </>
   );
 };
